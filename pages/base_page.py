@@ -22,3 +22,21 @@ class BasePage:
             message=f"Элемент '{name}' не найден за {timeout} секунд"
         )
         return BaseElement(self.driver, locator, name)
+
+    def wait_for_element(self, locator: tuple, name: str = "Элемент", timeout: int = 10) -> BaseElement:
+        Logger.debug(f"Ожидание появления элемента '{name}' по локатору: {locator}")
+        element = WebDriverWait(self.driver, timeout).until(
+            EC.visibility_of_element_located(locator),
+            message=f"Элемент '{name}' не появился за {timeout} секунд"
+        )
+        return BaseElement(self.driver, element, name)
+
+    def wait_for_elements(self, locator: tuple, name: str = "Элементы", timeout: int = 10) -> list:
+        Logger.debug(f"Ожидание появления элементов '{name}' по локатору: {locator}")
+        elements = WebDriverWait(self.driver, timeout).until(
+            EC.visibility_of_all_elements_located(locator),
+            message=f"Элементы '{name}' не появились за {timeout} секунд"
+        )
+        Logger.debug(f"Найдено элементов '{name}': {len(elements)}")
+        return elements
+
