@@ -1,16 +1,17 @@
 import pytest
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from utils.logger import Logger
+from browser.browser_factory import BrowserFactory
+from browser.browser import Browser
 
 
-@pytest.fixture
-def driver():
+@pytest.fixture(scope="function")
+def browser():
     Logger.info("Запуск браузера Chrome")
-    service = Service(ChromeDriverManager().install())
-    browser = webdriver.Chrome(service=service)
-    browser.maximize_window()
-    yield browser
-    Logger.info("Закрытие браузера\n")
-    browser.quit()
+    driver = BrowserFactory.get_driver()
+    driver.maximize_window()
+    browser_instance = Browser(driver)
+
+    yield browser_instance
+
+    Logger.info("Закрытие браузера")
+    browser_instance.quit()
