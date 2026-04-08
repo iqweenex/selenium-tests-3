@@ -3,12 +3,11 @@ from utils.logger import Logger
 
 
 class TestHorizontalSlider:
-    def test_horizontal_slider_random_value(self, driver):
-        slider_page = HorizontalSliderPage(driver)
+    def test_horizontal_slider_random_value(self, browser):
+        slider_page = HorizontalSliderPage(browser)
         Logger.info("Тест Horizontal Slider")
 
         slider_page.open()
-
         slider_page.set_slider_value()
 
         slider_value = slider_page.get_slider_value()

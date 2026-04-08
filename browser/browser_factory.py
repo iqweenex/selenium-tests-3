@@ -4,6 +4,8 @@ from selenium import webdriver
 
 from utils.logger import Logger
 from selenium.webdriver.remote.webdriver import WebDriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 
 
 class AvailableDriverName(StrEnum):
@@ -26,7 +28,8 @@ class BrowserFactory:
             for option in options:
                 chrome_options.add_argument(option)
 
-            driver = webdriver.Chrome(options=chrome_options)
+            service = Service(ChromeDriverManager().install())
+            driver = webdriver.Chrome(service=service, options=chrome_options)
         else:
             raise NotImplementedError(f"{driver_name} is not implemented")
         return driver

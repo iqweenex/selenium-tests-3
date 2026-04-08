@@ -1,10 +1,8 @@
 import logging
-
 from selenium.common import WebDriverException
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 from elements.base_element import BaseElement
 from utils.logger import Logger
 
@@ -15,7 +13,7 @@ class Browser:
 
     def __init__(self, driver: WebDriver):
         self._driver = driver
-        self._driver.set_page_load_time(self.PAGE_LOAD_TIMEOUT)
+        self._driver.set_page_load_timeout(self.PAGE_LOAD_TIMEOUT)
         self.main_handle = None
         self._wait = WebDriverWait(self._driver, timeout=self.DEFAULT_TIMEOUT)
 
@@ -44,6 +42,14 @@ class Browser:
             logging.error(f"{self}: {err}")
             raise
 
+    def execute_script(self, script: str, *args) -> None:
+        Logger.info(f"{self}: execute script = {script} with {args}")
+        try:
+            self._driver.execute_script(script, *args)
+        except WebDriverException as err:
+            Logger.error(f"{self}: {err}")
+            raise
+
     def wait_alert_present(self):
         Logger.info(f"{self} wait alert present")
         return self._wait.until(EC.alert_is_present())
@@ -61,7 +67,7 @@ class Browser:
         Logger.info(f"{self}: accept alert")
         self.switch_to_alert().accept()
 
-    def send_keys_alert(self, text:str):
+    def send_keys_alert(self, text: str):
         Logger.info(f"{self}: send {text} to alert")
         self.switch_to_alert().send_keys(text)
 
