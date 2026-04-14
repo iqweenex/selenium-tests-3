@@ -4,7 +4,6 @@ from pages.base_page import BasePage
 from locators.horizontal_slider_locators import HorizontalSliderLocators
 from utils.logger import Logger
 from elements.web_element import WebElement
-import random
 
 
 class HorizontalSliderPage(BasePage):
@@ -17,11 +16,10 @@ class HorizontalSliderPage(BasePage):
         self.slider = WebElement(browser, HorizontalSliderLocators.SLIDER, "Слайдер")
         self.slider_value = WebElement(browser, HorizontalSliderLocators.SLIDER_VALUE, "Видимое значение")
 
-    def open(self):
-        self.browser.get("https://the-internet.herokuapp.com/horizontal_slider")
+    def open(self, url: str):
+        Logger.info(f"Открываем страницу {self.page_name}")
+        self.browser.get(url)
         self.wait_for_open()
-        Logger.info(f"{self}: {self.page_name} открыта")
-        return self
 
     def get_slider_value(self) -> float:
         value = float(self.slider.get_attribute("value"))
@@ -45,21 +43,7 @@ class HorizontalSliderPage(BasePage):
     def get_min_value(self) -> float:
         return float(self.slider.get_attribute("min"))
 
-    def get_random_value(self) -> float:
-        step = self.get_slider_step()
-        max_value = self.get_max_value()
-        min_value = self.get_min_value()
-
-        possible_values = []
-        current = min_value + step
-        while current < max_value:
-            possible_values.append(round(current, 1))
-            current += step
-
-        return random.choice(possible_values)
-
-    def set_slider_value(self):
-        target_value = self.get_random_value()
+    def set_slider_value(self, target_value: float):
         self.slider.click()
 
         current_value = self.get_slider_value()
@@ -69,13 +53,11 @@ class HorizontalSliderPage(BasePage):
         actions = ActionChains(self.browser.driver)
 
         if steps > 0:
-            for _ in range(steps):
-                actions.send_keys(Keys.ARROW_RIGHT)
-        elif steps<0:
-            for _ in range(-steps):
-                actions.send_keys(Keys.ARROW_LEFT)
+            actions.send_keys(Keys.ARROW_RIGHT * steps)
+        elif steps < 0:
+            actions.send_keys(Keys.ARROW_LEFT * abs(steps))
 
+        Logger.info(f"Слайдер устанавливаем на значение {target_value}")
         actions.perform()
 
-        Logger.info(f"Слайдер установлен на значение {target_value}")
-        return self
+

@@ -28,18 +28,17 @@ class MultiWebElement:
         return self
 
     def __next__(self) -> WebElement:
-        current_element = WebElement(
-            self.browser,
-            self.formattable_xpath.format(self.index),
-            f"{self.description}[{self.index}]",
-            self.timeout
-
-        )
-
+        current_element = self.get_by_index(self.index)
         if not current_element.is_exist():
             raise StopIteration
         self.index += 1
         return current_element
+
+    def __len__(self) -> int:
+        count = 0
+        for _ in self:
+            count += 1
+        return count
 
     def get_by_index(self, index: int) -> WebElement:
         return WebElement(
@@ -48,20 +47,3 @@ class MultiWebElement:
             f"{self.description}[{index}]",
             self.timeout
         )
-
-    def count(self) -> int:
-        count = 0
-        index = 1
-        while True:
-            element = WebElement(
-                self.browser,
-                self.formattable_xpath.format(index),
-                f"{self.description}[{index}]",
-                timeout=1
-            )
-            if element.is_exist():
-                count += 1
-                index += 1
-            else:
-                break
-        return count

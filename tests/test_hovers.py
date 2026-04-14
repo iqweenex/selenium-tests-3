@@ -3,11 +3,14 @@ from utils.logger import Logger
 
 
 class TestHovers:
+    BASE_URL_HOVER_PAGE = "https://the-internet.herokuapp.com/"
+    URL_FOR_OPEN = BASE_URL_HOVER_PAGE+"hovers"
+    URL_FOR_USERS = BASE_URL_HOVER_PAGE + "users/"
 
     def test_hovers_all_users(self, browser):
         Logger.info("Тест: Hovers")
         hovers_page = HoversPage(browser)
-        hovers_page.open()
+        hovers_page.open(self.URL_FOR_OPEN)
 
         user_count = hovers_page.get_avatars_count()
         Logger.info(f"Найдено пользователей: {user_count}")
@@ -24,7 +27,7 @@ class TestHovers:
 
             hovers_page.click_view_profile(i)
 
-            expected_url = f"https://the-internet.herokuapp.com/users/{i + 1}"
+            expected_url = f"{self.URL_FOR_USERS}{i + 1}"
             current_url = browser.driver.current_url
             Logger.info(f"Ожидаемый URL: {expected_url}")
             Logger.info(f"Фактический URL: {current_url}")
@@ -34,6 +37,6 @@ class TestHovers:
                 f"Получен: {current_url}"
 
             if i < user_count - 1:
-                hovers_page.go_back()
+                hovers_page.open(self.URL_FOR_OPEN)
 
         Logger.info("Тест Hovers успешно пройден")

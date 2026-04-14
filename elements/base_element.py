@@ -20,7 +20,6 @@ class BaseElement:
                  timeout: int = DEFAULT_TIMEOUT):
         self.browser = browser
         self.timeout = timeout
-        self._parent_element = None
 
         if isinstance(locator, str):
             if '/' in locator:
@@ -32,11 +31,6 @@ class BaseElement:
 
         self.description = description if description else str(locator)
         self._wait = WebDriverWait(self.browser.driver, timeout=self.timeout)
-
-    def _get_search_root(self):
-        if self._parent_element:
-            return self._parent_element
-        return self.browser.driver
 
     def _wait_for(self, expected_condition) -> WebElement:
         try:
@@ -79,6 +73,11 @@ class BaseElement:
         except WebDriverException as err:
             Logger.error(f"{self}: {err}")
             raise
+
+    def scroll_to_view(self, block: str = "center"):
+        element = self.wait_for_presence()
+        Logger.info(f"{self}: scrolling to view {element}")
+        self.browser.execute_script(f"arguments[0].scrollIntoView({{block: '{block}'}});", element)
 
     def js_click(self):
         element = self.wait_for_presence()
