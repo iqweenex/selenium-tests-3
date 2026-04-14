@@ -3,22 +3,24 @@ from pages.auth_page import AuthPage
 from utils.logger import Logger
 
 
-def test_basic_auth_success(browser):
-    auth_page = AuthPage(browser)
+class TestBasicAuth:
+    URL_AUTH_TEST = "the-internet.herokuapp.com/basic_auth"
 
-    Logger.info("Начало теста: Basic Auth")
+    def test_basic_auth_success(self, browser):
+        auth_page = AuthPage(browser)
 
-    auth_page.open_with_auth("admin", "admin")
+        Logger.info("Начало теста: Basic Auth")
 
-    expected_text = "Congratulations! You must have the proper credentials."
-    actual_text = auth_page.get_success_message()
+        auth_page.open_with_auth("the-internet.herokuapp.com/basic_auth", "admin", "admin")
 
-    Logger.info(f"Проверка текста"
-                f"Ожидаемый: {expected_text}\n"
-                f"Полученный: {actual_text}")
+        expected_text = "Congratulations! You must have the proper credentials."
+        actual_text = auth_page.get_success_message()
 
-    assert expected_text in actual_text, f"Ожидался текст: {expected_text}\n" \
-                                         f"Получен текст: {actual_text}"
+        Logger.info(f"Проверка текста"
+                    f"Ожидаемый: {expected_text}\n"
+                    f"Полученный: {actual_text}")
 
-    Logger.info("Basic auth test завершен успешно!")
+        assert expected_text in actual_text, f"Ожидался текст: {expected_text}\n" \
+                                             f"Получен текст: {actual_text}"
 
+        Logger.info("Basic auth test завершен успешно!")

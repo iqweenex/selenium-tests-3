@@ -2,6 +2,6 @@ from selenium.webdriver.common.by import By
 
 
 class HorizontalSliderLocators:
-    CONTENT_AREA = (By.ID, "content")
-    SLIDER = (By.XPATH, "//input[@type='range']")
-    SLIDER_VALUE = (By.XPATH, "//div[@id='content']//span[@id='range']")
+    CONTENT_AREA = "content"
+    SLIDER = "//input[@type='range']"
+    SLIDER_VALUE = "//*[@id='content']//*[@id='range']"
