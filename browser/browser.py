@@ -74,3 +74,15 @@ class Browser:
     def switch_to_frame(self, frame: BaseElement):
         Logger.info(f"{self}: switch to frame")
         return self.driver.switch_to.frame(frame.wait_for_presence())
+
+    def trigger_js_alert(self, message: str = "I am a JS Alert"):
+        Logger.info("Вызов JS Alert через JavaScript")
+        self.execute_script(f"alert({message});")
+
+    def trigger_js_confirm(self, message: str = "I am a JS Confirm"):
+        Logger.info("Вызов JS Confirm через JavaScript")
+        self.execute_script(f"confirm({message});")
+
+    def trigger_js_prompt(self, message: str = "I am a JS Prompt"):
+        Logger.info("Вызов JS Prompt через JavaScript")
+        self.execute_script(f"prompt({message});")

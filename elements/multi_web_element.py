@@ -7,9 +7,6 @@ from elements.web_element import WebElement
 class MultiWebElement:
     DEFAULT_TIMEOUT = 10
 
-    # Пример локатора для вызова MultiWebElement:
-    # MULTI_LOCATOR = "//table[@data='prices']//tr[{}]//td[last()] <- вот тут в конце подставляется индекс в tr[{}]"
-
     def __init__(
             self,
             browser: Browser,

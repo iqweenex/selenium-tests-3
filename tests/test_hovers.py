@@ -10,7 +10,9 @@ class TestHovers:
     def test_hovers_all_users(self, browser):
         Logger.info("Тест: Hovers")
         hovers_page = HoversPage(browser)
-        hovers_page.open(self.URL_FOR_OPEN)
+        Logger.info(f"Открываем страницу {hovers_page.page_name}")
+        browser.get(self.URL_FOR_OPEN)
+        hovers_page.wait_for_open()
 
         user_count = hovers_page.get_avatars_count()
         Logger.info(f"Найдено пользователей: {user_count}")

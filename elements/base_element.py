@@ -5,6 +5,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from utils.logger import Logger
 from selenium.webdriver.support import expected_conditions as EC
 from typing import TYPE_CHECKING
+from utils.constants import ScrollBlock
 
 if TYPE_CHECKING:
     from browser.browser import Browser
@@ -74,7 +75,7 @@ class BaseElement:
             Logger.error(f"{self}: {err}")
             raise
 
-    def scroll_to_view(self, block: str = "center"):
+    def scroll_to_view(self, block: ScrollBlock = ScrollBlock.CENTER):
         element = self.wait_for_presence()
         Logger.info(f"{self}: scrolling to view {element}")
         self.browser.execute_script(f"arguments[0].scrollIntoView({{block: '{block}'}});", element)

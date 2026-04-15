@@ -1,27 +1,22 @@
 from selenium.webdriver import ActionChains
 from elements.web_element import WebElement
 from pages.base_page import BasePage
-from locators.hovers_locators import HoversLocators
 from utils.logger import Logger
 from elements.multi_web_element import MultiWebElement
 
 
 class HoversPage(BasePage):
-    UNIQUE_ELEMENT_LOC = HoversLocators.UNIQUE_LOCATOR
-
+    UNIQUE_ELEMENT_LOC = "//*[@id='content']//p"
+    AVATARS_XPATH = "(//div[contains(@class, 'figure')])[{}]"
     _USER_NAME_XPATH = "(//div[contains(@class, 'figure')])[{}]//div[contains(@class, 'figcaption')]/h5"
     _PROFILE_LINK_XPATH = "(//div[contains(@class, 'figure')])[{}]//div[contains(@class, 'figcaption')]/a"
 
     def __init__(self, browser):
         super().__init__(browser)
         self.page_name = "Hovers page"
-        self.avatars = MultiWebElement(browser, HoversLocators.AVATARS_XPATH, "Аватары")
+        self.avatars = MultiWebElement(browser, self.AVATARS_XPATH, "Аватары")
         self.unique_element = WebElement(browser, self.UNIQUE_ELEMENT_LOC, "Аватары")
 
-    def open(self, url: str):
-        Logger.info(f"Открываем страницу {self.page_name}")
-        self.browser.get(url)
-        self.wait_for_open()
 
     def get_avatars_count(self) -> int:
         count = len(self.avatars)
@@ -30,12 +25,11 @@ class HoversPage(BasePage):
 
     def hover_over_avatar(self, avatar_index: int):
         avatar = self.avatars.get_by_index(avatar_index + 1)
-        avatar.wait_for_presence()
         avatar.scroll_to_view()
 
         actions = ActionChains(self.browser.driver)
         Logger.info(f"Наводим курсор на аватар {avatar_index + 1}")
-        actions.move_to_element(avatar.wait_for_presence()).perform()
+        actions.move_to_element(avatar.wait_for_visible()).perform()
         return avatar
 
     def get_user_name(self, avatar_index: int) -> str:

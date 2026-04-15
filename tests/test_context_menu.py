@@ -11,7 +11,9 @@ class TestContextMenu:
         context_page = ContextMenuPage(browser)
         Logger.info(f"Тест Context Menu")
 
-        context_page.open(self.URL_CONTEXT_MENU)
+        Logger.info(f"Открываем {context_page.page_name}")
+        browser.get(self.URL_CONTEXT_MENU)
+        context_page.wait_for_open()
         context_page.right_click_on_hot_spot()
 
         alert_text = browser.get_alert_text()

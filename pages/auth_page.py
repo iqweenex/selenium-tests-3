@@ -5,12 +5,13 @@ from elements.label import Label
 
 
 class AuthPage(BasePage):
-    UNIQUE_ELEMENT_LOC = AuthLocators.SUCCESS_MESSAGE
+    UNIQUE_ELEMENT_LOC = "//*[@id='content']//p"
+    SUCCESS_MESSAGE = "//*[@id='content']//p"
 
     def __init__(self, browser):
         super().__init__(browser)
         self.page_name = "basic Auth page"
-        self.success_message = Label(browser, self.UNIQUE_ELEMENT_LOC, "Сообщение об успшеной авторизации")
+        self.success_message = Label(browser, self.SUCCESS_MESSAGE, "Сообщение об успшеной авторизации")
 
     def open_with_auth(self, url: str, username: str, password: str):
         auth_url = f"https://{username}:{password}@{url}"
