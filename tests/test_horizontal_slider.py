@@ -9,7 +9,9 @@ class TestHorizontalSlider:
         slider_page = HorizontalSliderPage(browser)
         Logger.info("Тест Horizontal Slider")
 
-        slider_page.open(self.URL_HORIZONTAL_SLIDER_PAGE)
+        Logger.info(f"Открываем страницу {slider_page.page_name}")
+        browser.get(self.URL_HORIZONTAL_SLIDER_PAGE)
+        slider_page.wait_for_open()
         step = slider_page.get_slider_step()
         max_value = slider_page.get_max_value()
         min_value = slider_page.get_min_value()
