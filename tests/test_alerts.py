@@ -1,5 +1,4 @@
-import pytest
-from pages.alerts_page import AlertsPage
+from pages.alerts.alerts_page import AlertsPage
 from utils.logger import Logger
 from faker import Faker
 

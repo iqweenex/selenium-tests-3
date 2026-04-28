@@ -1,4 +1,4 @@
-from pages.horizontal_slider_page import HorizontalSliderPage
+from pages.horizontal_slider.horizontal_slider_page import HorizontalSliderPage
 from utils.logger import Logger
 import random
 
