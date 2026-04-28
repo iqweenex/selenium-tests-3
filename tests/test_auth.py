@@ -1,5 +1,4 @@
-import pytest
-from pages.auth_page import AuthPage
+from pages.auth.auth_page import AuthPage
 from utils.logger import Logger
 
 

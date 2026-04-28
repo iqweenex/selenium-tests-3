@@ -77,12 +77,37 @@ class Browser:
 
     def trigger_js_alert(self, message: str = "I am a JS Alert"):
         Logger.info("Вызов JS Alert через JavaScript")
-        self.execute_script(f"alert({message});")
+        self.execute_script(f"alert('{message}');")
 
     def trigger_js_confirm(self, message: str = "I am a JS Confirm"):
         Logger.info("Вызов JS Confirm через JavaScript")
-        self.execute_script(f"confirm({message});")
+        self.execute_script(f"confirm('{message}');")
 
     def trigger_js_prompt(self, message: str = "I am a JS Prompt"):
         Logger.info("Вызов JS Prompt через JavaScript")
-        self.execute_script(f"prompt({message});")
+        self.execute_script(f"prompt('{message}');")
+
+    def get_window_handles(self) -> list:
+        Logger.info(f"{self}: get window handles")
+        return self._driver.window_handles
+
+    def switch_to_window(self, window_handle: str) -> None:
+        Logger.info(f"{self}: switch to window {window_handle}")
+        self._driver.switch_to.window(window_handle)
+
+    def get_current_window_handle(self) -> str:
+        Logger.info(f"{self}: get current window handle")
+        return self._driver.current_window_handle
+
+    def switch_to_new_window(self) -> None:
+        '''
+        переключается на последнюю вкладку по умолчанию
+        :param page_index: индекс вкладки
+        '''
+        handles = self.get_window_handles()
+        Logger.info(f"{self}: switch to new window, handles count = {len(handles)}")
+        self.switch_to_window(handles[-1])
+
+    def refresh(self) -> None:
+        Logger.info(f"{self}: refresh page")
+        self._driver.refresh()

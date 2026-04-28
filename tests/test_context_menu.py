@@ -1,4 +1,4 @@
-from pages.context_menu_page import ContextMenuPage
+from pages.context_menu.context_menu_page import ContextMenuPage
 from utils.logger import Logger
 
 

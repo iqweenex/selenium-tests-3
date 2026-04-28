@@ -14,9 +14,8 @@ class HoversPage(BasePage):
     def __init__(self, browser):
         super().__init__(browser)
         self.page_name = "Hovers page"
-        self.avatars = MultiWebElement(browser, self.AVATARS_XPATH, "Аватары")
+        self.avatars = MultiWebElement(browser, self.AVATARS_XPATH, "Аватары", timeout=3)
         self.unique_element = WebElement(browser, self.UNIQUE_ELEMENT_LOC, "Аватары")
-
 
     def get_avatars_count(self) -> int:
         count = len(self.avatars)
@@ -26,7 +25,6 @@ class HoversPage(BasePage):
     def hover_over_avatar(self, avatar_index: int):
         avatar = self.avatars.get_by_index(avatar_index + 1)
         avatar.scroll_to_view()
-
         actions = ActionChains(self.browser.driver)
         Logger.info(f"Наводим курсор на аватар {avatar_index + 1}")
         actions.move_to_element(avatar.wait_for_visible()).perform()
@@ -46,4 +44,3 @@ class HoversPage(BasePage):
         profile_link = WebElement(self.browser, profile_xpath, f"Ссылка профиля {avatar_index + 1}")
         Logger.info(f"Нажимаем ссылку аватара {avatar_index + 1}")
         profile_link.click()
-
