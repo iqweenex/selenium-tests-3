@@ -1,5 +1,6 @@
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
+from elements.label import Label
 from pages.base_page import BasePage
 from utils.logger import Logger
 from elements.web_element import WebElement
@@ -16,11 +17,10 @@ class HorizontalSliderPage(BasePage):
         self.unique_element = WebElement(browser, self.UNIQUE_ELEMENT_LOC, "Область контента")
         self.page_name = "Horizontal slider page"
         self.slider = WebElement(browser, self.SLIDER, "Слайдер")
-        self.slider_value = WebElement(browser, self.SLIDER_VALUE, "Видимое значение")
+        self.slider_value = Label(browser, self.SLIDER_VALUE, "Видимое значение")
 
     def get_slider_value(self) -> float:
         value = float(self.slider.get_attribute("value"))
-        Logger.info(f"Текущее значение слайдера: {value}")
         return value
 
     def get_displayed_value(self) -> float:

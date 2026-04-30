@@ -17,9 +17,7 @@ class UploadedPage(BasePage):
         self.uploaded_label = Label(browser, self.FILE_UPLOADED_LABEL, "Надпись File Uploaded")
 
     def get_uploaded_file_name(self) -> str:
-        Logger.info(f"{self}: получение название файла")
         return self.uploaded_file.get_text()
 
     def get_uploaded_message(self) -> str:
-        Logger.info(f"{self}: получение заголовка File Uploaded")
         return self.uploaded_label.get_text()

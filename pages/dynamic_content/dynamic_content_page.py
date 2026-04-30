@@ -3,6 +3,7 @@ from elements.web_element import WebElement
 from elements.multi_web_element import MultiWebElement
 from utils.logger import Logger
 
+
 class DynamicContentPage(BasePage):
     UNIQUE_ELEMENT_LOC = "//h3[contains(text(), 'Dynamic')]"
     IMAGES_XPATH = "(//div[@class='row']//img)[{}]"
@@ -26,6 +27,3 @@ class DynamicContentPage(BasePage):
         has_duplicat = len(set(src_list)) != len(src_list)
         return has_duplicat
 
-    def refresh_page(self):
-        Logger.info(f"{self}: обновление страницы")
-        self.browser.refresh()

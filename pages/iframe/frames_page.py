@@ -27,10 +27,7 @@ class FramesPage(BasePage):
         self.browser.switch_to_frame(self.frame1)
 
         text = self.frame_text.get_text()
-
-        Logger.info(f"{self}: текст frame1 = '{text}'")
         self.browser.driver.switch_to.default_content()
-
         return text
 
     def get_frame2_text(self) -> str:
@@ -40,8 +37,5 @@ class FramesPage(BasePage):
         self.browser.switch_to_frame(self.frame2)
 
         text = self.frame_text.get_text()
-
-        Logger.info(f"{self}: текст frame2 = '{text}'")
         self.browser.driver.switch_to.default_content()
-
         return text

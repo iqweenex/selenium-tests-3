@@ -1,6 +1,8 @@
 from pages.base_page import BasePage
 from elements.web_element import WebElement
 from utils.logger import Logger
+from elements.label import Label
+from elements.button import Button
 
 
 class AlertsFrameWindowsPage(BasePage):
@@ -15,11 +17,11 @@ class AlertsFrameWindowsPage(BasePage):
     def __init__(self, browser):
         super().__init__(browser)
         self.page_name = "Alerts Frame Windows Page"
-        self.unique_element = WebElement(browser, self.UNIQUE_ELEMENT_LOC, "Плейсхолдер Please select an item")
-        self.menu_header = WebElement(browser, self.MENU_HEADER, "Заголовок меню")
+        self.unique_element = Label(browser, self.UNIQUE_ELEMENT_LOC, "Плейсхолдер Please select an item")
+        self.menu_header = Button(browser, self.MENU_HEADER, "Заголовок меню")
         self.menu_container = WebElement(browser, self.MENU_CONTAINER, "Контейнер меню")
-        self.nested_frames_menu = WebElement(browser, self.NESTED_FRAMES_MENU, "Пункт Nested Frames")
-        self.frames_menu = WebElement(browser, self.FRAMES_MENU, "Пункт Frames")
+        self.nested_frames_menu = Button(browser, self.NESTED_FRAMES_MENU, "Пункт Nested Frames")
+        self.frames_menu = Button(browser, self.FRAMES_MENU, "Пункт Frames")
 
     def ensure_menu_open(self):
         Logger.info(f"Открываем боковое меню Alerts, Frame & Windows, если не открыто")
@@ -29,3 +31,9 @@ class AlertsFrameWindowsPage(BasePage):
             self.menu_header.click()
         else:
             Logger.info(f"{self}: меню уже открыто")
+
+    def click_nested_frames(self):
+        self.nested_frames_menu.click()
+
+    def click_frames(self):
+        self.frames_menu.click()

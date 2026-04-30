@@ -35,12 +35,10 @@ class HoversPage(BasePage):
         name_xpath = self._USER_NAME_XPATH.format(avatar_index + 1)
         name_element = WebElement(self.browser, name_xpath, f"Имя аватара {avatar_index + 1}")
         name = name_element.get_text()
-        Logger.info(f"Имя аватара {avatar_index + 1}: {name}")
         return name
 
     def click_view_profile(self, avatar_index: int):
         self.hover_over_avatar(avatar_index)
         profile_xpath = self._PROFILE_LINK_XPATH.format(avatar_index + 1)
         profile_link = WebElement(self.browser, profile_xpath, f"Ссылка профиля {avatar_index + 1}")
-        Logger.info(f"Нажимаем ссылку аватара {avatar_index + 1}")
         profile_link.click()

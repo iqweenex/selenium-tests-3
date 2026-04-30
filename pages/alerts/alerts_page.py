@@ -1,5 +1,4 @@
 from pages.base_page import BasePage
-from utils.logger import Logger
 from elements.label import Label
 from elements.button import Button
 
@@ -20,11 +19,6 @@ class AlertsPage(BasePage):
         self.btn_js_alert = Button(browser, self.BUTTON_JS_ALERT, "Кнопка JS Alert")
         self.btn_js_confirm = Button(browser, self.BUTTON_JS_CONFIRM, "Кнопка JS Confirm")
         self.btn_js_prompt = Button(browser, self.BUTTON_JS_PROMPT, "Кнопка JS Prompt")
-
-    def open(self, url: str):
-        Logger.info(f"Открываем страницу {self.page_name}")
-        self.browser.get(url)
-        self.wait_for_open()
 
     def click_js_alert_button(self):
         self.btn_js_alert.click()
