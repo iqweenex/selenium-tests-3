@@ -55,21 +55,25 @@ class Browser:
         return self._wait.until(EC.alert_is_present())
 
     def switch_to_alert(self):
-        Logger.info(f"{self}: switch to alert")
         self.wait_alert_present()
+        Logger.info(f"{self}: switch to alert")
         return self.driver.switch_to.alert
 
     def get_alert_text(self):
+        alert = self.switch_to_alert()
         Logger.info(f"{self}: get alert text")
-        return self.switch_to_alert().text
+        text = alert.text
+        return text
 
     def accept_alert(self):
+        alert = self.switch_to_alert()
         Logger.info(f"{self}: accept alert")
-        self.switch_to_alert().accept()
+        alert.accept()
 
     def send_keys_alert(self, text: str):
+        alert = self.switch_to_alert()
         Logger.info(f"{self}: send {text} to alert")
-        self.switch_to_alert().send_keys(text)
+        alert.send_keys(text)
 
     def switch_to_frame(self, frame: BaseElement):
         Logger.info(f"{self}: switch to frame")
@@ -100,14 +104,13 @@ class Browser:
         return self._driver.current_window_handle
 
     def switch_to_new_window(self) -> None:
-        '''
-        переключается на последнюю вкладку по умолчанию
-        :param page_index: индекс вкладки
-        '''
         handles = self.get_window_handles()
-        Logger.info(f"{self}: switch to new window, handles count = {len(handles)}")
         self.switch_to_window(handles[-1])
 
     def refresh(self) -> None:
         Logger.info(f"{self}: refresh page")
         self._driver.refresh()
+
+    def scroll_to_bottom(self):
+        Logger.info(f"{self}: scroll to bottom")
+        self.execute_script("window.scrollTo(0, document.body.scrollHeight);")
