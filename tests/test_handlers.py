@@ -22,6 +22,8 @@ class TestHandlers:
         browser.get(self.URL_HANDLERS)
         handlers_page.wait_for_open()
         window_manager.save_main_handle()
+        expected_page_text = "New Window"
+        expected_title = "New Window"
 
         for i in range(windows_count):
             Logger.info(f"Открытие вкладки {i + 1}")
@@ -31,8 +33,13 @@ class TestHandlers:
             )
 
             new_window_page = NewWindowPage(browser)
-            assert new_window_page.get_page_text() == "New Window"
-            assert browser.driver.title == "New Window"
+            actual_page_text = new_window_page.get_page_text()
+            actual_title = browser.driver.title
+            assert actual_page_text == expected_page_text, f"Ожидалось {expected_page_text}\n" \
+                                                           f"Получено {actual_page_text}"
+
+            assert actual_title == expected_title, f"Ожидалось {expected_title}\n" \
+                                                   f"Получено {actual_title}"
 
             window_manager.switch_to_main()
 

@@ -16,7 +16,6 @@ class NestedFramesPage(BasePage):
         super().__init__(browser)
         self.page_name = "Nested Frames Page"
         self.unique_element = Label(browser, self.UNIQUE_ELEMENT_LOC, "Заголовок Nested Frames")
-
         self.parent_frame = WebElement(browser, self.PARENT_FRAME_LOC, "Parent frame")
         self.parent_frame_text = Label(browser, self.PARENT_FRAME_TEXT_LOC, "Текст parent frame")
         self.child_frame = WebElement(browser, self.CHILD_FRAME_LOC, "Child frame")

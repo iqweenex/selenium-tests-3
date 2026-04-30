@@ -1,9 +1,6 @@
 import os
 from pages.upload.upload_page import UploadPage
-from pages.upload.uploaded_file_page import UploadedPage
 from utils.logger import Logger
-from utils.pyautogui_utils import PyAutoGUIUtilities
-from selenium.webdriver.support.wait import WebDriverWait
 
 
 class TestFileDialogUpload:
@@ -29,7 +26,7 @@ class TestFileDialogUpload:
                                                 f"Получено {file_name}"
 
         expected_mark = "✔"
-        success_mark = upload_page.success_mark.get_text()
+        success_mark = upload_page.get_success_mark_text()
 
         assert expected_mark == success_mark, f"Ожидалось {expected_mark}\n" \
                                               f"Получено {success_mark}"

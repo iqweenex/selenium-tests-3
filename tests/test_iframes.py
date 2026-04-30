@@ -14,7 +14,7 @@ class TestIframe:
         browser.get(self.URL_DEMOQA)
         main_page.wait_for_open()
         Logger.info(f"Кликаем по карточке Alerts, Frame & Windows")
-        main_page.alerts_card.click()
+        main_page.click_alerts_frame_windows_card()
         alerts_page = AlertsFrameWindowsPage(browser)
         alerts_page.wait_for_open()
 
@@ -26,7 +26,7 @@ class TestIframe:
 
         alerts_page.ensure_menu_open()
         Logger.info(f"Кликаем Nested Frame")
-        alerts_page.nested_frames_menu.click()
+        alerts_page.click_nested_frames()
 
         nested_frames_page = NestedFramesPage(browser)
         nested_frames_page.wait_for_open()
@@ -50,7 +50,7 @@ class TestIframe:
         Logger.info("Тест: Frames")
 
         alerts_page.ensure_menu_open()
-        alerts_page.frames_menu.click()
+        alerts_page.click_frames()
 
         frames_page = FramesPage(browser)
         frames_page.wait_for_open()

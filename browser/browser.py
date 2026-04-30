@@ -42,6 +42,11 @@ class Browser:
             logging.error(f"{self}: {err}")
             raise
 
+    def open_with_auth(self, url: str, username: str, password: str) -> None:
+        auth_url = f"https://{username}:{password}@{url}"
+        Logger.info(f"Выполнение Basic Auth для пользователя: {username}")
+        self.get(auth_url)
+
     def execute_script(self, script: str, *args) -> None:
         Logger.info(f"{self}: execute script = {script} with {args}")
         try:

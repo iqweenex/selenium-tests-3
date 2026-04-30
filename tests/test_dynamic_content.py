@@ -16,7 +16,7 @@ class TestDynamicContent:
             if attempt == 0:
                 browser.get(self.URL)
             else:
-                dynamic_page.refresh_page()
+                browser.refresh()
 
             dynamic_page.wait_for_open()
 
