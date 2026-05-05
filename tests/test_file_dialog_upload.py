@@ -19,7 +19,7 @@ class TestFileDialogUpload:
 
         upload_page.file_dialog_upload(file_path)
 
-        file_name = upload_page.file_name.get_text()
+        file_name = upload_page.get_filename_text()
         expected_file_name = file_path.split('\\')[-1]
 
         assert file_name == expected_file_name, f"Ожидалось {expected_file_name}\n" \

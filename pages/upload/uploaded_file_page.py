@@ -1,7 +1,6 @@
 from pages.base_page import BasePage
 from elements.web_element import WebElement
 from elements.label import Label
-from utils.logger import Logger
 
 
 class UploadedPage(BasePage):
