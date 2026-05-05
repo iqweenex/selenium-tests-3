@@ -1,4 +1,5 @@
 from selenium.webdriver import ActionChains
+from elements.button import Button
 from elements.web_element import WebElement
 from pages.base_page import BasePage
 from utils.logger import Logger
@@ -40,5 +41,5 @@ class HoversPage(BasePage):
     def click_view_profile(self, avatar_index: int):
         self.hover_over_avatar(avatar_index)
         profile_xpath = self._PROFILE_LINK_XPATH.format(avatar_index + 1)
-        profile_link = WebElement(self.browser, profile_xpath, f"Ссылка профиля {avatar_index + 1}")
+        profile_link = Button(self.browser, profile_xpath, f"Ссылка профиля {avatar_index + 1}")
         profile_link.click()

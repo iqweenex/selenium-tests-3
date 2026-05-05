@@ -14,7 +14,6 @@ class TestInfinityScroll:
         browser.get(self.URL)
         scroll_page.wait_for_open()
 
-        current_count = 0
         max_attempts = 120
 
         for attempt in range(max_attempts):

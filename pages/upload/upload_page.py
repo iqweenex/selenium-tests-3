@@ -37,3 +37,6 @@ class UploadPage(BasePage):
 
     def get_success_mark_text(self):
         return self.success_mark.get_text()
+
+    def get_filename_text(self):
+        return self.file_name.get_text()
