@@ -15,4 +15,5 @@ class DemoqaMainPage(BasePage):
 
     def click_alerts_frame_windows_card(self):
         Logger.info(f"{self}: клик по карточке Alerts, Frame & Windows")
-        self.alerts_card.click()
+        self.alerts_card.scroll_to_view()
+        self.alerts_card.js_click()

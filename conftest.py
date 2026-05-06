@@ -8,7 +8,6 @@ from browser.browser import Browser
 def browser():
     Logger.info("Запуск браузера Chrome")
     driver = BrowserFactory.get_driver()
-    driver.maximize_window()
     browser_instance = Browser(driver)
 
     yield browser_instance

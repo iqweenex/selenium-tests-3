@@ -23,11 +23,15 @@ class Browser:
 
     def get(self, url: str) -> None:
         Logger.info(f"{self}: get {url}")
-        try:
-            self._driver.get(url)
-        except WebDriverException as err:
-            logging.error(f"{self}: {err}")
-            raise
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                self._driver.get(url)
+                break
+            except WebDriverException as err:
+                logging.error(f"{self}: attempt {attempt + 1}/{max_retries} - {err}")
+                if attempt == max_retries - 1:
+                    raise
         self.main_handle = self._driver.current_window_handle
 
     def close(self) -> None:
